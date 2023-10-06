@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ViewArticleController!{% endblock %}
+
+{% block body %}
+<div class="container bg-secondary text-light mt-5">
+
+<h1 class="text-center">{{articles.titreArticle|upper}}</h1>
+<p>{{articles.contenuArticle|raw}}</p>
+<a class="text-decoration-none text-light" href="{{ path('app_dashboard')}}">Retour</a>
+
+</div>
+{% endblock %}

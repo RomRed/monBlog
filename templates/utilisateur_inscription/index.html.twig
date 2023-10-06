@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UtilisateurInscriptionController!{% endblock %}
+
+{% block body %}
+    <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+      <form method="post" action="" class="bg-dark text-light px-4 py-4 rounded shadow p-3 mb-5  rounded">
+        <h1>Inscription</h1>
+        <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">NOM</label>
+    <input type="text" name="_username" class="form-control"  >
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Prenom</label>
+    <input type="text" name="prenom" class="form-control">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">EMAIL</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">PASSWORD</label>
+    <input name="_password" type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <button type="submit" class="btn btn-light mt-5">Create</button>
+
+
+</form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

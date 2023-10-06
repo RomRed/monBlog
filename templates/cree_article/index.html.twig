@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container bg-dark text-light px-2 py-2 mt-5 rounded">
+		<div class="row">
+			<div class="col-lg-6 mx-auto">
+				<h1 class="text-center px-1 py-1">Création d'un nouvel article</h1>
+				{{ form_start(form) }}
+				{{ form_row(form.titre_article)}}
+                {{ form_row(form.contenu_article)}}
+                {{ form_row(form.id_sous_categorie)}}
+				{{ form_widget(imgForm)}}
+				<div class="d-flex justify-content-center">
+					<button type="submit" class="btn btn-dark ">Valider</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		// Écoutez la soumission du formulaire
+document.querySelector('form').addEventListener('submit', function () {
+// Empêche la soumission normale du formulaire
+
+// Effectuez ici la validation du formulaire si nécessaire
+
+// En cas de succès, affichez SweetAlert
+Swal.fire('Votre article a été créé avec succès').then(function () { // Redirigez vers le tableau de bord ou une autre page si nécessaire
+window.location.href = "{{ path('app_dashboard') }}";
+});
+});
+	</script>
+{% endblock %}
+
