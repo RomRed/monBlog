@@ -27,7 +27,7 @@
 					<input type="hidden" name="_csrf_token" value="{{csrf_token('authenticate')}}"/>
 					<button type="submit" class="btn btn-primary">Submit</button>
 					<div>
-					<a href="http://127.0.0.1:8000/utilisateur/inscription">Cree un compte</a>
+					<a href="{{ path('app_utilisateur_inscription') }}">Cree un compte</a>
 					</div>
 				</form>
 			</div>

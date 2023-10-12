@@ -45,4 +45,18 @@ class VilleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+// src/Repository/VilleRepository.php
+
+public function findIdVilleByCodeInsee($codeInsee)
+{
+    return $this->createQueryBuilder('v')
+        ->select('v.idVille')
+        ->where('v.codeInsee = :codeInsee')
+        ->setParameter('codeInsee', $codeInsee)
+        ->setMaxResults(1)  
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+}
+
 }

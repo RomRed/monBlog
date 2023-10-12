@@ -1,37 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateurInscriptionController!{% endblock %}
-
+{% block title %}Inscription{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/Inscription.css')}}">
+{% endblock %}
 {% block body %}
-    <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-      <form method="post" action="" class="bg-dark text-light px-4 py-4 rounded shadow p-3 mb-5  rounded">
-        <h1>Inscription</h1>
-        <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">NOM</label>
-    <input type="text" name="_username" class="form-control"  >
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Prenom</label>
-    <input type="text" name="prenom" class="form-control">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">EMAIL</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">PASSWORD</label>
-    <input name="_password" type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <button type="submit" class="btn btn-light mt-5">Create</button>
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Inscription</h1>
+                {{ form_start(utilisateurForm) }}
+                    <fieldset class="mb-3">
+                        <legend>Mon identité</legend>
 
+                        {{form_row(utilisateurForm.citycode, {'attr': {'class': 'hidden-input'}})}} 
+                        {{ form_row(utilisateurForm.nom) }}
+                        {{ form_row(utilisateurForm.prenom) }}
+                        {{ form_row(utilisateurForm.email) }}
+                    </fieldset>
 
-</form>
-      </div>
-    </div>
-  </section>
+                    <fieldset class="mb-3">
+                        <legend>Mes coordonnées</legend>
+                        {{ form_row(utilisateurForm.adresse) }}
+                        {{form_row(utilisateurForm.cp)}}
+                        {# {{ form_row(utilisateurForm.nom_Ville) }} #}
+                    </fieldset>
+                    {{ form_row(utilisateurForm.mdp, {
+                        label: 'Password'
+                    }) }}
+                    {{ form_row(utilisateurForm.RGPDConsent) }}
+
+                    <button type="submit" class="btn btn-primary btn-lg my-3">M'inscrire</button>
+                    <a href="{{ path('app_auth') }}" class="btn btn-secondary">Me connecter</a>
+                {{ form_end(utilisateurForm) }}            
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% block javascripts %}
+    <script>
+        $("#utilisateur_adresse").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?q=8",
+                    data: {
+                        q: request.term
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        var addresses = [];
+                        response($.map(data.features, function (item) {
+                            return {
+                                label: item.properties.name + ", " + item.properties.postcode + " - " + item.properties.city,
+                                address: item.properties.name,
+                                postcode: item.properties.postcode,
+                                city: item.properties.city,
+                                value: item.properties.name,
+                                citycode: item.properties.citycode
+                            };
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $('#utilisateur_adresse').val(ui.item.address);
+                $('#utilisateur_cp').val(ui.item.postcode);
+                $('#utilisateur_nom_Ville').val(ui.item.city);
+                $('#utilisateur_citycode').val(ui.item.citycode);
+            }
+        });
+    </script>
 {% endblock %}

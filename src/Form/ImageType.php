@@ -13,8 +13,9 @@ class ImageType extends AbstractType
     {
         $builder
         ->add('nom_image', FileType::class, [ 'required'=> false,
+        'mapped' => false
         ])
-   
+
         ;
     }
 

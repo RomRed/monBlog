@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
 	<div class="container bg-dark text-light px-2 py-2 mt-5 rounded">
 		<div class="row">
@@ -8,8 +7,9 @@
 				{{ form_start(form) }}
 				{{ form_row(form.titre_article)}}
                 {{ form_row(form.contenu_article)}}
-                {{ form_row(form.id_sous_categorie)}}
-				{{ form_widget(imgForm)}}
+				{{form_row(form.idCategorie)}} 
+                {{ form_row(form.idSousCategorie)}}
+				{{form_row(form.nom_image)}}
 				<div class="d-flex justify-content-center">
 					<button type="submit" class="btn btn-dark ">Valider</button>
 				</div>
@@ -17,7 +17,8 @@
 			</div>
 		</div>
 	</div>
-
+{% endblock %}
+{% block javascripts %}
 
 	<script>
 		// Écoutez la soumission du formulaire
@@ -31,6 +32,20 @@ Swal.fire('Votre article a été créé avec succès').then(function () { // Red
 window.location.href = "{{ path('app_dashboard') }}";
 });
 });
+
+
+var $categorie = $('#article_idCategorie');
+$categorie.change(function() {
+var $form = $(this).closest('form');
+var data = {};
+data[$categorie.attr('name')] = $categorie.val();
+$.ajax({
+url : $form.attr('action'),
+type: $form.attr('method'),
+data : data,
+complete: function(html) {
+$('#article_idSousCategorie').replaceWith($(html.responseText).find('#article_idSousCategorie'));
+}});
+});
 	</script>
 {% endblock %}
-

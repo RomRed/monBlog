@@ -6,6 +6,9 @@
 <div class="container bg-secondary text-light mt-5">
 
 <h1 class="text-center">{{articles.titreArticle|upper}}</h1>
+										{% for image in images[articles.idArticle] %}
+                <img src="{{ asset('uploads/' ~ image.nomImage) }}" alt="Image de l'article">
+            {% endfor %}
 <p>{{articles.contenuArticle|raw}}</p>
 <a class="text-decoration-none text-light" href="{{ path('app_dashboard')}}">Retour</a>
 
